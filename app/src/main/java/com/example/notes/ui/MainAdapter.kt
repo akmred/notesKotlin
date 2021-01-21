@@ -38,7 +38,13 @@ class MainAdapter: RecyclerView.Adapter<MainAdapter.NoteViewHolder>() {
 
         fun bind(note: Note){
             title.text = note.title
-            body.text = note.note
+            // Заменил на with. title оставил, там разные размеры шрифта
+            //body.text = note.note
+            body.text  = with(note){
+                "title: ${note.title}"+
+                        "body: ${note.note}"
+            }
+
             itemView.setBackgroundColor(note.Color)
         }
     }

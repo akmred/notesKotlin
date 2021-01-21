@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="textviewTitle">8dp</dimen>
+    <dimen name="textviewMarginStart">8dp</dimen>
+    <dimen name="textviewMarginTop">8dp</dimen>
+    <dimen name="textviewMargin">8dp</dimen>
+    <dimen name="item_noteMarginCommon">4dp</dimen>
+</resources>
