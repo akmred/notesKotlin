@@ -2,4 +2,5 @@
     <string name="app_name">notes</string>
     <string name="titleTextCommonInAdapterToolText">Geekbrains + Kotlin forever</string>
     <string name="textViewDownInAdapterToolText">Я Kotlin бы выучил только за то, что на нем разрабатывал Вортон!</string>
+    <string name="new_note_title">new note</string>
 </resources>
