@@ -36,6 +36,7 @@ class NoteActivity:  AppCompatActivity(){
     private var note:Note? = null
     private lateinit var ui:ActivityNoteBinding
     private lateinit var viewModel: NoteViewModel
+
     private val textChangeListener = object: TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             // do nothing
@@ -50,18 +51,21 @@ class NoteActivity:  AppCompatActivity(){
         }
     }
 
-    private fun createNewNote(): Note = Note(UUID.randomUUID().toString(),
-        ui.titleEt.text.toString(),
-        ui.bodyEt.text.toString())
+    private fun createNewNote(): Note = Note(
+            UUID.randomUUID().toString(),
+            ui.titleEt.text.toString(),
+            ui.bodyEt.text.toString()
+    )
 
     private fun triggerSaveNote() {
-        if (ui.titleEt.text!!.length  < 3 ) return
+        if (ui.titleEt.text == null || ui.titleEt.text!!.length  < 3 ) return
 
         Handler(Looper.getMainLooper()).postDelayed(object: Runnable {
             override fun run() {
-                note = note?.copy(title = ui.titleEt.text.toString(),
-                note = ui.bodyEt.text.toString(),
-                lastChanged = Date()
+                note = note?.copy(
+                        title = ui.titleEt.text.toString(),
+                        note = ui.bodyEt.text.toString(),
+                        lastChanged = Date()
                 ) ?: createNewNote()
 
                 if (note != null) viewModel.saveChanges(note!!)
@@ -110,10 +114,12 @@ class NoteActivity:  AppCompatActivity(){
             }
 
             ui.toolbar.setBackgroundColor(resources.getColor(color))
-            ui.titleEt.addTextChangedListener(textChangeListener)
-            ui.bodyEt.addTextChangedListener(textChangeListener)
 
         }
+
+        ui.titleEt.addTextChangedListener(textChangeListener)
+        ui.bodyEt.addTextChangedListener(textChangeListener)
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when(item.itemId){
