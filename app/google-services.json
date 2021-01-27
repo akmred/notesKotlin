@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "178570684882",
+    "project_id": "noteskotlin-ef632",
+    "storage_bucket": "noteskotlin-ef632.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:178570684882:android:9a15bf824b404546fa800b",
+        "android_client_info": {
+          "package_name": "com.example.notes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "178570684882-uffujh5mra0g8bk269ldkf96dl0u7g1d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_TbhZfqGyF0Ckv8s5rsanypgFH2NoNUg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "178570684882-uffujh5mra0g8bk269ldkf96dl0u7g1d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
