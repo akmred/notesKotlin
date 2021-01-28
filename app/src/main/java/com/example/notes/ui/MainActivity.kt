@@ -10,7 +10,7 @@ import com.example.notes.modal.Note
 import com.example.notes.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity<List<Note>?, MainViewState() {
+class MainActivity : BaseActivity<List<Note>?, MainViewState>() {
 
     override val viewModel: MainViewModel by lazy { ViewModelProvider(this).get(MainViewModel ::class.java)}
     override val layoutRes: Int = R.layout.activity_main
@@ -32,7 +32,7 @@ class MainActivity : BaseActivity<List<Note>?, MainViewState() {
     }
 
     private fun openNoteScreen(note: Note?= null){
-        startActivity(NoteActivity.getStartIntent(this, note?.id))
+        startActivity(NoteActivity.getStartIntent(this, note?.id.toString()))
     }
 
     override fun renderData(data: List<Note>?) {

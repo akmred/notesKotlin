@@ -34,7 +34,7 @@ class NoteViewModel(private val repository: Repository = Repository): BaseViewMo
                         viewStateLiveData.value = NoteViewState(error = t.error)
                 }
             }
-        }
+        })
     }
 
 }
