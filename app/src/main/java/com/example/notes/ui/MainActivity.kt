@@ -18,7 +18,7 @@ class MainActivity : BaseActivity<List<Note>?, MainViewState>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(toolbar)
+      //  setContentView(toolbar)
 
         adapter = MainAdapter(object : OnItemClickListener{
             override fun onItemClick(note: Note) {
