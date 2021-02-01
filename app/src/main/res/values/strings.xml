@@ -3,4 +3,9 @@
     <string name="titleTextCommonInAdapterToolText">Geekbrains + Kotlin forever</string>
     <string name="textViewDownInAdapterToolText">Я Kotlin бы выучил только за то, что на нем разрабатывал Вортон!</string>
     <string name="new_note_title">new note</string>
+    <string name="logout_menu_title">logout_menu_title</string>
+    <string name="logout_dialog_titile">title</string>
+    <string name="logout_dialog_message">logout</string>
+    <string name="ok_bth_title">ok_title</string>
+    <string name="logout_dialog_cancel">cancel_title</string>
 </resources>

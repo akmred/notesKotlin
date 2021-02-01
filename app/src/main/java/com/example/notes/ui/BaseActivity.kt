@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
+import com.example.notes.R
 import com.example.notes.databinding.ActivityMainBinding
 import com.example.notes.modal.Note
 import com.example.notes.modal.RemoteDataProvider
@@ -16,29 +17,37 @@ abstract class BaseActivity<T, VS: BaseViewState<T>>: AppCompatActivity() {
 
     abstract val viewModel: BaseViewModel<T,VS>
     abstract val layoutRes: Int
+    abstract val ui: ViewBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(layoutRes)
+        setContentView(ui.root)
 
-        viewModel.getViewState().observe(this, object : Observer<VS>{
-            override fun onChanged(t: VS) {
-                if (t == null) return
-                if (t.data != null) renderData(t.data)
-                if (t.error != null) renderError(t.error)
+        viewModel.getViewState().observe(this) { t ->
+            t?.apply {
+               data?.let { renderData(it) }
+               error?.let { renderError(it) }
             }
-        })
+
+        }
 
     }
     abstract fun renderData(data: T)
 
-    protected fun renderError(error: Throwable){
-        if (error.message != null) showError(error.message!!)
+    protected open fun renderError(error: Throwable){
+        error.message?.let { showError(it) }
     }
 
-    private fun showError(error: String){
-        //TODO
+    protected fun showError(error: String){
+        Snackbar.make(ui.root, error, Snackbar.LENGTH_INDEFINITE).apply {
+            setAction(R.string.snackbar_action) { dismiss()}
+            show()
+        }
+    }
+
+    private fun startMainActivity(){
+        startActivity(MainActivity.getStartIntent(this))
     }
 
 }
