@@ -35,7 +35,7 @@ class NoteActivity : BaseActivity<Note?, NoteViewState>() {
     }
 
     private var note: Note? = null
-    private lateinit var ui: ActivityNoteBinding
+    public override lateinit var ui: ActivityNoteBinding
     override val viewModel: NoteViewModel by lazy { ViewModelProvider(this).get(NoteViewModel::class.java) }
     override val layoutRes: Int = R.layout.activity_note
 

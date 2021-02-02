@@ -48,7 +48,7 @@ class SplashActivity : BaseActivity<Boolean?, SplashViewState>() {
     override fun onResume() {
         super.onResume()
         Handler(Looper.getMainLooper())
-                .postDelayed({ viewModel.requestUser() },
+                .postDelayed({ viewModel.requsesUser() },
                     START_DELAY)
     }
 
@@ -63,12 +63,12 @@ class SplashActivity : BaseActivity<Boolean?, SplashViewState>() {
         startActivityForResult(
             AuthUI.getInstance()
                 .createSignInIntentBuilder()
-                .setLogo(R.drawable.common_google_signin_btn_icon_dark)
+                .setLogo(R.drawable.common_google_signin_btn_icon_dark_focused)
                 .setTheme(R.style.LoginStyle)
                 .setAvailableProviders(
                     listOf(
                         AuthUI.IdpConfig.EmailBuilder().build(),
-                        AuthUI.IdpConfig.GoogleBuilder.build()
+                            AuthUI.IdpConfig.GoogleBuilder().build()
                     )
                 )
                 .build(),

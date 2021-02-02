@@ -2,12 +2,10 @@ package com.example.notes.ui
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.notes.R
 import com.example.notes.databinding.ActivityMainBinding
@@ -16,7 +14,7 @@ import com.example.notes.viewmodel.MainViewModel
 import com.firebase.ui.auth.AuthUI
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity<List<Note>?, MainViewState>(), LogOutDialog.LogoutListener {
+class MainActivity : BaseActivity<List<Note>?, MainViewState>(), LogoutDialog.LogoutListener {
 
     override val viewModel: MainViewModel
         by lazy { ViewModelProvider(this).get(MainViewModel ::class.java)}
@@ -61,8 +59,8 @@ class MainActivity : BaseActivity<List<Note>?, MainViewState>(), LogOutDialog.Lo
         }
 
     private fun showLogoutDialog(){
-        supportFragmentManager.findFragmentById(LogOutDialog.TAG) ?:
-        LogOutDialog.createInstance().show(supportFragmentManager, LogOutDialog.TAG)
+        supportFragmentManager.findFragmentByTag(LogoutDialog.TAG) ?:
+        LogoutDialog.createInstance().show(supportFragmentManager, LogoutDialog.TAG)
     }
 
     companion object{
