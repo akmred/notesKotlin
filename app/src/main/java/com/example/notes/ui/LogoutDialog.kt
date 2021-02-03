@@ -6,7 +6,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.example.notes.R
 
-class LogoutDialog: DialogFragment() {
+class LogoutDialog : DialogFragment() {
 
     companion object {
         val TAG = LogoutDialog::class.java.name + "TAG"

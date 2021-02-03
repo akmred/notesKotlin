@@ -41,7 +41,7 @@ class SplashActivity : BaseActivity<Boolean?, SplashViewState>() {
 
     }
 
-    private fun startMainActivity(){
+    private fun startMainActivity() {
         startActivity(MainActivity.getStartIntent(this))
     }
 
@@ -49,7 +49,7 @@ class SplashActivity : BaseActivity<Boolean?, SplashViewState>() {
         super.onResume()
         Handler(Looper.getMainLooper())
                 .postDelayed({ viewModel.requsesUser() },
-                    START_DELAY)
+                        START_DELAY)
     }
 
     protected override fun renderError(error: Throwable) {
@@ -61,18 +61,18 @@ class SplashActivity : BaseActivity<Boolean?, SplashViewState>() {
 
     private fun startLoginActivity() {
         startActivityForResult(
-            AuthUI.getInstance()
-                .createSignInIntentBuilder()
-                .setLogo(R.drawable.common_google_signin_btn_icon_dark_focused)
-                .setTheme(R.style.LoginStyle)
-                .setAvailableProviders(
-                    listOf(
-                        AuthUI.IdpConfig.EmailBuilder().build(),
-                            AuthUI.IdpConfig.GoogleBuilder().build()
-                    )
-                )
-                .build(),
-            RC_SIGN_IN
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setLogo(R.drawable.common_google_signin_btn_icon_dark_focused)
+                        .setTheme(R.style.LoginStyle)
+                        .setAvailableProviders(
+                                listOf(
+                                        AuthUI.IdpConfig.EmailBuilder().build(),
+                                        AuthUI.IdpConfig.GoogleBuilder().build()
+                                )
+                        )
+                        .build(),
+                RC_SIGN_IN
         )
     }
 

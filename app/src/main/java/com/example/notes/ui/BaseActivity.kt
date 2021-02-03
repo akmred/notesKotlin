@@ -13,9 +13,9 @@ import com.example.notes.modal.RemoteDataProvider
 import com.example.notes.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 
-abstract class BaseActivity<T, VS: BaseViewState<T>>: AppCompatActivity() {
+abstract class BaseActivity<T, VS : BaseViewState<T>> : AppCompatActivity() {
 
-    abstract val viewModel: BaseViewModel<T,VS>
+    abstract val viewModel: BaseViewModel<T, VS>
     abstract val layoutRes: Int
     abstract val ui: ViewBinding
 
@@ -26,27 +26,28 @@ abstract class BaseActivity<T, VS: BaseViewState<T>>: AppCompatActivity() {
 
         viewModel.getViewState().observe(this) { t ->
             t?.apply {
-               data?.let { renderData(it) }
-               error?.let { renderError(it) }
+                data?.let { renderData(it) }
+                error?.let { renderError(it) }
             }
 
         }
 
     }
+
     abstract fun renderData(data: T)
 
-    protected open fun renderError(error: Throwable){
+    protected open fun renderError(error: Throwable) {
         error.message?.let { showError(it) }
     }
 
-    protected fun showError(error: String){
+    protected fun showError(error: String) {
         Snackbar.make(ui.root, error, Snackbar.LENGTH_INDEFINITE).apply {
-            setAction(R.string.snackbar_action) { dismiss()}
+            setAction(R.string.snackbar_action) { dismiss() }
             show()
         }
     }
 
-    private fun startMainActivity(){
+    private fun startMainActivity() {
         startActivity(MainActivity.getStartIntent(this))
     }
 

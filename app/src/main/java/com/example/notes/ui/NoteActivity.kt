@@ -54,9 +54,9 @@ class NoteActivity : BaseActivity<Note?, NoteViewState>() {
     }
 
     private fun createNewNote(): Note = Note(
-        UUID.randomUUID().toString(),
-        ui.titleEt.text.toString(),
-        ui.bodyEt.text.toString()
+            UUID.randomUUID().toString(),
+            ui.titleEt.text.toString(),
+            ui.bodyEt.text.toString()
     )
 
     private fun triggerSaveNote() {
@@ -65,9 +65,9 @@ class NoteActivity : BaseActivity<Note?, NoteViewState>() {
         Handler(Looper.getMainLooper()).postDelayed(object : Runnable {
             override fun run() {
                 note = note?.copy(
-                    title = ui.titleEt.text.toString(),
-                    note = ui.bodyEt.text.toString(),
-                    lastChanged = Date()
+                        title = ui.titleEt.text.toString(),
+                        note = ui.bodyEt.text.toString(),
+                        lastChanged = Date()
                 ) ?: createNewNote()
 
                 if (note != null) viewModel.saveChanges(note!!)

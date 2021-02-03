@@ -13,5 +13,4 @@ interface RemoteDataProvider {
     fun getCurrentUser(): LiveData<User?>
 
 
-
 }
