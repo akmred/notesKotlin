@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.view.menu.ActionMenuItemView
+import androidx.cardview.widget.CardView
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notes.R
 import com.example.notes.databinding.ItemNoteBinding
@@ -15,7 +17,8 @@ interface OnItemClickListener {
     fun onItemClick(note: Note)
 }
 
-class MainAdapter(private val onItemClickListener: OnItemClickListener) : RecyclerView.Adapter<MainAdapter.NoteViewHolder>() {
+class MainAdapter(private val onItemClickListener: OnItemClickListener) :
+    RecyclerView.Adapter<MainAdapter.NoteViewHolder>() {
 
     var notes: List<Note> = listOf()
         set(value) {
@@ -56,7 +59,7 @@ class MainAdapter(private val onItemClickListener: OnItemClickListener) : Recycl
                 Color.BLUE -> R.color.color_blue
             }
 
-            itemView.setBackgroundResource(color)
+            ui.container.setCardBackgroundColor(note.color.getColorInt(itemView.context))
             itemView.setOnClickListener { onItemClickListener.onItemClick(note) }
         }
     }

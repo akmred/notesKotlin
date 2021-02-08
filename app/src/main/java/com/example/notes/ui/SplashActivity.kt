@@ -14,14 +14,14 @@ import com.example.notes.modal.NoAuthException
 import com.example.notes.viewmodel.MainViewModel
 import com.firebase.ui.auth.AuthUI
 import com.google.android.material.snackbar.Snackbar
+import org.koin.android.viewmodel.ext.android.viewModel
 
 private const val RC_SIGN_IN = 42
 private const val START_DELAY = 1000L
 
 class SplashActivity : BaseActivity<Boolean?, SplashViewState>() {
 
-    override val viewModel: SplashViewModel
-            by lazy { ViewModelProvider(this).get(SplashViewModel::class.java) }
+    override val viewModel: SplashViewModel by viewModel()
 
     override val ui: ActivitySplashBinding
             by lazy { ActivitySplashBinding.inflate(layoutInflater) }
@@ -48,8 +48,10 @@ class SplashActivity : BaseActivity<Boolean?, SplashViewState>() {
     override fun onResume() {
         super.onResume()
         Handler(Looper.getMainLooper())
-                .postDelayed({ viewModel.requsesUser() },
-                        START_DELAY)
+            .postDelayed(
+                { viewModel.requsesUser() },
+                START_DELAY
+            )
     }
 
     protected override fun renderError(error: Throwable) {
@@ -61,18 +63,18 @@ class SplashActivity : BaseActivity<Boolean?, SplashViewState>() {
 
     private fun startLoginActivity() {
         startActivityForResult(
-                AuthUI.getInstance()
-                        .createSignInIntentBuilder()
-                        .setLogo(R.drawable.common_google_signin_btn_icon_dark_focused)
-                        .setTheme(R.style.LoginStyle)
-                        .setAvailableProviders(
-                                listOf(
-                                        AuthUI.IdpConfig.EmailBuilder().build(),
-                                        AuthUI.IdpConfig.GoogleBuilder().build()
-                                )
-                        )
-                        .build(),
-                RC_SIGN_IN
+            AuthUI.getInstance()
+                .createSignInIntentBuilder()
+                .setLogo(R.drawable.common_google_signin_btn_icon_dark_focused)
+                .setTheme(R.style.LoginStyle)
+                .setAvailableProviders(
+                    listOf(
+                        AuthUI.IdpConfig.EmailBuilder().build(),
+                        AuthUI.IdpConfig.GoogleBuilder().build()
+                    )
+                )
+                .build(),
+            RC_SIGN_IN
         )
     }
 

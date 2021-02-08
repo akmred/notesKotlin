@@ -12,12 +12,11 @@ import com.example.notes.databinding.ActivityMainBinding
 import com.example.notes.modal.Note
 import com.example.notes.viewmodel.MainViewModel
 import com.firebase.ui.auth.AuthUI
-import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<List<Note>?, MainViewState>(), LogoutDialog.LogoutListener {
 
-    override val viewModel: MainViewModel
-            by lazy { ViewModelProvider(this).get(MainViewModel::class.java) }
+    override val viewModel: MainViewModel by viewModel()
 
     override val ui: ActivityMainBinding
             by lazy { ActivityMainBinding.inflate(layoutInflater) }
@@ -27,7 +26,7 @@ class MainActivity : BaseActivity<List<Note>?, MainViewState>(), LogoutDialog.Lo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //  setContentView(toolbar)
+        setContentView(ui.toolbar)
 
         adapter = MainAdapter(object : OnItemClickListener {
             override fun onItemClick(note: Note) {
@@ -35,9 +34,9 @@ class MainActivity : BaseActivity<List<Note>?, MainViewState>(), LogoutDialog.Lo
             }
         })
 
-        mainRecycler.adapter = adapter
+        ui.mainRecycler.adapter = adapter
 
-        fab.setOnClickListener { openNoteScreen() }
+        ui.fab.setOnClickListener { openNoteScreen() }
     }
 
     private fun openNoteScreen(note: Note? = null) {
@@ -50,30 +49,31 @@ class MainActivity : BaseActivity<List<Note>?, MainViewState>(), LogoutDialog.Lo
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean =
-            MenuInflater(this).inflate(R.menu.main_menu, menu).let { true }
+        MenuInflater(this).inflate(R.menu.main_menu, menu).let { true }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
-            when (item.itemId) {
-                R.id.logout -> showLogoutDialog().let { true }
-                else -> false
-            }
+        when (item.itemId) {
+            R.id.logout -> showLogoutDialog().let { true }
+            else -> false
+        }
 
     private fun showLogoutDialog() {
         supportFragmentManager.findFragmentByTag(LogoutDialog.TAG)
-                ?: LogoutDialog.createInstance().show(supportFragmentManager, LogoutDialog.TAG)
+            ?: LogoutDialog.createInstance().show(supportFragmentManager, LogoutDialog.TAG)
+    }
+
+    override fun onLogout() {
+        AuthUI.getInstance()
+            .signOut(this)
+            .addOnCompleteListener {
+                startActivity(Intent(this, SplashActivity::class.java))
+                finish()
+            }
+
     }
 
     companion object {
         fun getStartIntent(content: Context) = Intent(content, MainActivity::class.java)
     }
 
-    override fun onLogout() {
-        AuthUI.getInstance()
-                .signOut(this)
-                .addOnCompleteListener {
-                    startActivity(Intent(this, SplashActivity::class.java))
-                    finish()
-                }
-
-    }
 }
