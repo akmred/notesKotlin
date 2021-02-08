@@ -11,7 +11,7 @@ data class Note(
         val note: String = "",
         val color: Color = com.example.notes.modal.Color.WHITE,
         val lastChanged: Date = Date()
-        ): Parcelable {
+) : Parcelable {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -29,7 +29,7 @@ data class Note(
     }
 }
 
-enum class Color{
+enum class Color {
     WHITE,
     YELLOW,
     GREEN,

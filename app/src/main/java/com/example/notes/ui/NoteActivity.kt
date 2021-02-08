@@ -21,24 +21,25 @@ import java.util.*
 
 const val SAVE_DELAY = 2000L
 
-class NoteActivity:  BaseActivity<Note?, NoteViewState>(){
+class NoteActivity : BaseActivity<Note?, NoteViewState>() {
 
-    companion object{
+    companion object {
         private const val EXTRA_NOTE = "NoteActivity extra NOTE"
 
-        fun getStartIntent(context: Context, noteId: String):Intent{
+        fun getStartIntent(context: Context, noteId: String): Intent {
             val intent = Intent(context, NoteActivity::class.java)
             intent.putExtra(EXTRA_NOTE, noteId)
             return intent
         }
 
     }
-    private var note:Note? = null
-    private lateinit var ui:ActivityNoteBinding
+
+    private var note: Note? = null
+    public override lateinit var ui: ActivityNoteBinding
     override val viewModel: NoteViewModel by lazy { ViewModelProvider(this).get(NoteViewModel::class.java) }
     override val layoutRes: Int = R.layout.activity_note
 
-    private val textChangeListener = object: TextWatcher {
+    private val textChangeListener = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             // do nothing
         }
@@ -59,9 +60,9 @@ class NoteActivity:  BaseActivity<Note?, NoteViewState>(){
     )
 
     private fun triggerSaveNote() {
-        if (ui.titleEt.text == null || ui.titleEt.text!!.length  < 3 ) return
+        if (ui.titleEt.text == null || ui.titleEt.text!!.length < 3) return
 
-        Handler(Looper.getMainLooper()).postDelayed(object: Runnable {
+        Handler(Looper.getMainLooper()).postDelayed(object : Runnable {
             override fun run() {
                 note = note?.copy(
                         title = ui.titleEt.text.toString(),
@@ -83,29 +84,21 @@ class NoteActivity:  BaseActivity<Note?, NoteViewState>(){
             viewModel.loadNote(it)
         }
 
-        if(noteId == null) supportActionBar?.title = getString(R.string.new_note_title)
+        if (noteId == null) supportActionBar?.title = getString(R.string.new_note_title)
 
         initView();
 
     }
 
     private fun initView() {
-        if (note != null) {
-            ui.titleEt.setText(note?.title ?: "")
-            ui.bodyEt.setText(note?.note ?: "")
-            val color = when (note?.color) {
-                Color.WHITE -> R.color.color_white
-                Color.VIOLET -> R.color.color_violet
-                Color.YELLOW -> R.color.color_yello
-                Color.RED -> R.color.color_red
-                Color.PINK -> R.color.color_pink
-                Color.GREEN -> R.color.color_green
-                Color.BLUE -> R.color.color_blue
 
-                else -> R.color.color_white
-            }
+        note?.run {
+            ui.toolbar.setBackgroundColor(resources.getColor(color.getColorInt(this@NoteActivity)))
 
-            ui.toolbar.setBackgroundColor(resources.getColor(color))
+            ui.titleEt.setText(title)
+            ui.bodyEt.setText(note)
+
+            supportActionBar?.title = lastChanged.format()
 
         }
 
@@ -114,10 +107,10 @@ class NoteActivity:  BaseActivity<Note?, NoteViewState>(){
 
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean = when(item.itemId){
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         android.R.id.home -> {
             onBackPressed()
-              true
+            true
         }
         else -> super.onOptionsItemSelected(item)
     }
